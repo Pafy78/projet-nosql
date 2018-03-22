@@ -8,7 +8,7 @@ const port = process.env.PORT || 5000;
 app.get('/api/all', (req, res) => {
     mongo.MongoFindQuery({
         "fname": "1."
-    }, 10, function (result) {
+    }, 100, function (result) {
         mongo.GetInfoFromResult(result, "sender", function (list) {
             res.send({express : list});
         });
