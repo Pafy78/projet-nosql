@@ -4,5 +4,15 @@ import './index.css';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+var callApi = async () => {
+    const response = await fetch('/api/all');
+    const body = await response.json();
+    if (response.status !== 200) throw Error(body.message);
+
+    ReactDOM.render(<App emails={body.express}/>, document.getElementById('root'));
+};
+
+callApi();
+
+
 registerServiceWorker();

@@ -1,40 +1,28 @@
 import React, { Component } from 'react';
 
-import logo from './logo.svg';
-
-import './App.css';
-
 class App extends Component {
-  state = {
-    response: ''
-  };
+    render() {
+        const rows = [];
 
-  componentDidMount() {
-    this.callApi()
-      .then(res => this.setState({ response: res.express }))
-      .catch(err => console.log(err));
-  }
+        this.props.emails.forEach((email) => {
+            rows.push(
+                <tr>
+                <td>{email}</td>
+                </tr>
+            );
+        });
 
-  callApi = async () => {
-    const response = await fetch('/api/hello');
-    const body = await response.json();
-
-    if (response.status !== 200) throw Error(body.message);
-
-    return body;
-  };
-
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">{this.state.response}</p>
-      </div>
-    );
-  }
+        return (
+            <table>
+            <thead>
+            <tr>
+            <th>Email</th>
+            </tr>
+            </thead>
+            <tbody>{rows}</tbody>
+            </table>
+        );
+    }
 }
 
 export default App;
