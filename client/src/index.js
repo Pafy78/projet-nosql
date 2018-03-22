@@ -10,7 +10,7 @@ class Base extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            email: ''
+            email: null
         };
 
         this.handleShowEmail = this.handleShowEmail.bind(this);
@@ -22,18 +22,18 @@ class Base extends React.Component {
         this.setState({
             email: em
         });
+        callApiDetails(em);
     }
     render() {
         return (
             <div className="content">
             <EmailsList 
             emails={this.props.emails} 
+            email={this.state.email}
             onClickEmail={this.handleShowEmail}
             />
-            <div className="EmailDetails">
-            <Email 
-            email={this.state.email}
-            />
+            <div id="EmailDetails" className="EmailDetails">
+            
             </div>
             </div>
         );
@@ -42,14 +42,22 @@ class Base extends React.Component {
 
 
 var callApi = async () => {
-    const response = await fetch('/api/all');
+    const response = await fetch('/api/emails');
     const body = await response.json();
     if (response.status !== 200) throw Error(body.message);
 
     ReactDOM.render(<Base emails={body.express}/>, document.getElementById('root'));
                     };
 
+                    var callApiDetails = async (email) => {
+        const response = await fetch('/api/details/' + email);
+        const body = await response.json();
+        if (response.status !== 200) throw Error(body.message);
+
+        ReactDOM.render(<Email email={body.express} />, document.getElementById('EmailDetails'));
+                        };
 
 
-                    callApi();
-    registerServiceWorker();
+
+                        callApi();
+        registerServiceWorker();

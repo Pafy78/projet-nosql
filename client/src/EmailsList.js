@@ -7,7 +7,6 @@ class EmailsList extends Component {
 
     }
     handleShowEmail(e) {
-        console.log(e);
         this.props.onClickEmail(e.target.id);
     }
 
@@ -15,11 +14,20 @@ class EmailsList extends Component {
         const rows = [];
 
         this.props.emails.forEach((email) => {
-            rows.push(
-                <div className="row-emails" id={email} onClick={this.handleShowEmail} >
-                <p id={email} onClick={this.handleShowEmail}>{email}</p>
-                </div>
-            );
+            if(this.props.email == email){
+                rows.push(
+                    <div className="row-emails active" id={email} onClick={this.handleShowEmail} >
+                    <p id={email} onClick={this.handleShowEmail}>{email}</p>
+                    </div>
+                );
+            }
+            else{
+                rows.push(
+                    <div className="row-emails" id={email} onClick={this.handleShowEmail} >
+                    <p id={email} onClick={this.handleShowEmail}>{email}</p>
+                    </div>
+                );
+            }
         });
 
         return (

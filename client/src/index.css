@@ -24,7 +24,7 @@ body {
 }
 
 .row-emails{
-    padding: 20px;
+    padding: 10px;
     display: flex;
     align-items: flex-start;
     justify-content: flex-start;
@@ -32,6 +32,9 @@ body {
 .row-emails:hover{
     background-color: #f1f1f1;
     cursor: pointer;
+}
+.row-emails + .active{
+    background-color: #f1f1f1;
 }
 
 .row-emails input{
