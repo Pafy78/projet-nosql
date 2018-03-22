@@ -10,7 +10,7 @@
 ❯ npm install
 ```  
 
-- And to start the project :  
+- And to start the project (on the root of the project) :  
 ```sh
 ❯ yarn dev
 ```
