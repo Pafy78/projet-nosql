@@ -12,14 +12,37 @@ mongo.MongoFindQuery({
 });
 
 
+
+//Examples of use
 /*
-mongo.MongoFindSender("rosalee.fleming@enron.com", 2, function (result) {
+mongo.MongoFindQuery({
+    'sender': 'Test@test.com'
+}, 3, function (result) {
+    //console.log(result);
+    mongo.GetInfoFromResult(result, "_id", function (list) {
+        console.log(list);
+    });
+});
+*/
+
+/*
+mongo.MongoFindSender("Test@test.com", 2, function (result) {
     console.log(result);
 });
 */
 
 /*
-mongo.MongoFindBetweenDates("1999-10","1999-11", 2, function (result) {
+mongo.MongoFindBetweenDates("2000-01-12","2000-01-13", 2, function (result) {
     console.log(result);
 });
 */
+
+/*
+mongo.UpdateWithId("52af48b5d55148fa0c199643", {
+    sender: "Test@test.com"
+}, function (result) {
+    console.log(result);
+})
+*/
+
+//mongo.RemoveWithId("52af48b5d55148fa0c199643", function () {})
