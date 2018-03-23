@@ -1,8 +1,8 @@
 var mongo = require('./mongo');
 
 
-//Examples of use
 
+/*
 mongo.MongoFindQuery({
     "fname": "1."
 }, 3, function (result) {
@@ -10,7 +10,7 @@ mongo.MongoFindQuery({
         console.log(list);
     });
 });
-
+*/
 
 
 //Examples of use
@@ -26,14 +26,36 @@ mongo.MongoFindQuery({
 */
 
 /*
-mongo.MongoFindSender("Test@test.com", 2, function (result) {
+mongo.MongoFindBetweenDates("2000-01-12","2000-01-13", 2, function (result) {
     console.log(result);
 });
 */
 
 /*
-mongo.MongoFindBetweenDates("2000-01-12","2000-01-13", 2, function (result) {
+mongo.MongoFindSender("Test@test.com", 2, function (result) {
     console.log(result);
+});
+*/
+
+//New Examples of use
+
+/*
+mongo.ListSenders(function(listSenders){
+    console.log(listSenders);
+})
+*/
+
+/* Everything from a sender
+mongo.MailOfSender("rosalee.fleming@enron.com", function (result) {
+    console.log(result);
+});
+*/
+/*Get list of subject of a sender
+mongo.MailOfSender("rosalee.fleming@enron.com", function (result) {
+    //console.log(result);
+    mongo.GetInfoFromResult(result, "subject", function (list) {
+        console.log(list);
+    });
 });
 */
 

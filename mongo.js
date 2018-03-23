@@ -102,15 +102,60 @@ exports.MongoFindBetweenDates = function (gteDate, lteDate, limit, callback) {
     });
 }
 
-exports.UpdateWithId = function (id, updateFields, callback) {
+exports.ListSenders = function (callback) {
+    MongoClient.connect(dburl, function (err, db) {
+        if (!err) {
+            console.log("We are connected");
+            var dbo = db.db("MongEnron");
+
+            dbo.collection("Enron").distinct('sender', function (err, docs) {
+                docs.sort();
+                callback(docs);
+                //Error managment
+                if (err) {
+                    console.log(err);
+                }
+            });
+        }
+    });
+}
+
+exports.MailOfSender = function (searchSender, callback) {
+    MongoClient.connect(dburl, function (err, db) {
+        if (!err) {
+            console.log("We are connected");
+            var dbo = db.db("MongEnron");
+
+            var query = {
+                'sender': searchSender
+            };
+
+            dbo.collection("Enron").find(query).toArray(function (err, result) {
+                if (err) {
+                    console.log(err);
+                }
+                db.close();
+                callback(result);
+            });
+        }
+        //Error managment
+        if (err) {
+            console.log(err);
+        }
+    });
+}
+
+exports.UpdateWithId = function (id, newTitle, callback) {
     MongoClient.connect(dburl, function (err, db) {
         if (!err) {
             console.log("We are connected");
             var dbo = db.db("MongEnron");
             var query = {
-                $set: updateFields
+                $set: {
+                    title: newTitle
+                }
             };
-            var ObjectId = new ObjectID.createFromHexString(id)
+            var ObjectId = new ObjectID.createFromHexString(id);
 
             dbo.collection("Enron").update({
                 _id: ObjectId
@@ -126,41 +171,29 @@ exports.UpdateWithId = function (id, updateFields, callback) {
 }
 
 exports.RemoveWithId = function (id, callback) {
-    {
-        MongoClient.connect(dburl, function (err, db) {
-            if (!err) {
-                console.log("We are connected");
-                var dbo = db.db("MongEnron");
-                var ObjectId = new ObjectID.createFromHexString(id)
-                var query = {
-                    _id: ObjectId
-                };
+    MongoClient.connect(dburl, function (err, db) {
+        if (!err) {
+            console.log("We are connected");
+            var dbo = db.db("MongEnron");
+            var ObjectId = new ObjectID.createFromHexString(id)
+            var query = {
+                _id: ObjectId
+            };
 
-                dbo.collection("Enron").remove(query, function (err, obj) {
-                    if (err) {
-                        console.log(err)
-                    } else {
-                        console.log(obj.result.n + " document(s) deleted");
-                        db.close();
-                        callback();
-                    }
-                });
-
-                //Error managment
+            dbo.collection("Enron").remove(query, function (err, obj) {
                 if (err) {
-                    console.log(err);
+                    console.log(err)
+                } else {
+                    console.log(obj.result.n + " document(s) deleted");
+                    db.close();
+                    callback();
                 }
+            });
+            
+            //Error managment
+            if (err) {
+                console.log(err);
             }
-        });
-    }
+        }
+    });
 }
-
-//Examples of use
-
-/*
-mongo.MongoFindQuery({
-    "fname": "1."
-}, 1, function (result) {
-    console.log(result);
-});
-*/
