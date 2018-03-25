@@ -1,5 +1,13 @@
 var mongo = require('./mongo');
 
+/*
+    * All the comment above are to give some examples of use of the funstoins writed on the mongo.js
+    * Some function aren't used in the final project, they where used for testing purposes
+    * Some example may can't be up to date with the current DB or function adjustments
+*/
+
+
+
 //Testing the update
 /*
 mongo.MongoFindSender(".elizondo@enron.com", 2, function (result) {
