@@ -4,6 +4,7 @@ class EmailDetail extends React.Component {
     constructor(props) {
         super(props);
         this.handleShowEmail = this.handleShowEmail.bind(this);
+        this.handleSaveChanges = this.handleSaveChanges.bind(this);
     }
 
     async handleShowEmail(e) {
