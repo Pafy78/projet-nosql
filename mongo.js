@@ -14,68 +14,6 @@ exports.GetInfoFromResult = function (result, infoNeeded, callback) {
     callback(returnList);
 }
 
-//Basic find with personnalised query
-//For debug only
-exports.MongoFindQuery = function (query, limit, callback) {
-    MongoClient.connect(dburl, function (err, db) {
-        if (!err) {
-            console.log("We are connected");
-            var dbo = db.db("MongEnron");
-
-            dbo.collection("Enron").find(query).limit(limit).toArray(function (err, result) {
-                if (err) {
-                    console.log(err);
-                } else {
-                    db.close();
-                    console.log("Connection closed");
-                    callback(result);
-                }
-            });
-        }
-        //Error managment
-        if (err) {
-            console.log(err);
-        }
-    });
-}
-
-//Find everything between two dates
-//Not used in the webapp
-exports.MongoFindBetweenDates = function (gteDate, lteDate, limit, callback) {
-    // Connect to the db
-    MongoClient.connect(dburl, function (err, db) {
-        if (!err) {
-            console.log("We are connected");
-            var dbo = db.db("MongEnron");
-
-            var query = {
-                $and: [{
-                    "date": {
-                        $gte: gteDate
-                    }
-                }, {
-                    "date": {
-                        $lte: lteDate
-                    }
-                }]
-            };
-
-            dbo.collection("Enron").find(query).limit(limit).toArray(function (err, result) {
-                if (err) {
-                    console.log(err);
-                }
-                db.close();
-                console.log("Connection closed");
-                callback(result);
-            });
-        }
-        //Error managment
-        if (err) {
-            console.log(err);
-        }
-    });
-}
-
 //Return the list of sender
 exports.ListSenders = function (callback) {
     MongoClient.connect(dburl, function (err, db) {
@@ -208,18 +146,4 @@ db.enron.updateOne({ "_id" : idToUpdate },{ $set: { "text" : newText } });
 /*
 var idToDelete = ObjectId("52af48b5d55148fa0c199643");
 db.enron.remove( {"_id": idToDelete});
-*/
-
-//Not used
-//MongoFindQuery
-/*
-var specialQuery = {'sender':"rosalee.fleming@enron.com"}
-db.enron.find(specialQuery,{})
-*/
-
-//MongoFindBetweenDates
-/*
-var dateBeginning = "1999-10";
-var dateEnd = "1999-11";
-db.enron.find({$and:[{"date":{$gte:dateBeginning}}, {"date":{$lte:dateEnd}}]})
 */
