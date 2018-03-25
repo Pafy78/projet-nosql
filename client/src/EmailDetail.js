@@ -15,7 +15,7 @@ class EmailDetail extends React.Component {
     }
     
     async handleSaveChanges(e) {
-        const response = await fetch('/api/update/text/' + this.props.email._id + "/" + e.target.value);
+        const response = await fetch('/api/update/text/' + this.props.email._id + "/" + this.refs.text.value);
         const body = await response.json();
         if (response.status !== 200) throw Error(body.message);
         window.location.reload();
@@ -33,7 +33,7 @@ class EmailDetail extends React.Component {
             <p className="date">{new Intl.DateTimeFormat('en-US', {year: 'numeric', month: '2-digit',day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit'}).format(new Date(this.props.email.date))}</p>
             </div>
             <hr/>
-            <textarea className="text">{this.props.email.text}</textarea>
+            <textarea id="text" className="text">{this.props.email.text}</textarea>
             <input type="submit" value="Save changes" className="btn-blue right" onClick={this.handleSaveChanges} />
                 </div>
             
