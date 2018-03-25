@@ -31,6 +31,7 @@ exports.MongoFindQuery = function (query, limit, callback) {
                     console.log(err);
                 } else {
                     db.close();
+                    console.log("Connection closed");
                     callback(result);
                 }
             });
@@ -58,6 +59,7 @@ exports.MongoFindSender = function (sender, limit, callback) {
                     console.log(err);
                 }
                 db.close();
+                console.log("Connection closed");
                 callback(result);
             });
         }
@@ -92,6 +94,7 @@ exports.MongoFindBetweenDates = function (gteDate, lteDate, limit, callback) {
                     console.log(err);
                 }
                 db.close();
+                console.log("Connection closed");
                 callback(result);
             });
         }
@@ -110,6 +113,8 @@ exports.ListSenders = function (callback) {
 
             dbo.collection("Enron").distinct('sender', function (err, docs) {
                 docs.sort();
+                db.close();
+                console.log("Connection closed");
                 callback(docs);
                 //Error managment
                 if (err) {
@@ -135,6 +140,7 @@ exports.MailOfSender = function (searchSender, callback) {
                     console.log(err);
                 }
                 db.close();
+                console.log("Connection closed");
                 callback(result);
             });
         }
@@ -161,6 +167,8 @@ exports.UpdateWithId = function (id, newText, callback) {
                 _id: ObjectId
             }, query);
             console.log("Update done");
+            db.close();
+            console.log("Connection closed");
         }
 
         //Error managment
@@ -186,10 +194,11 @@ exports.RemoveWithId = function (id, callback) {
                 } else {
                     console.log(obj.result.n + " document(s) deleted");
                     db.close();
+                    console.log("Connection closed");
                     callback();
                 }
             });
-            
+
             //Error managment
             if (err) {
                 console.log(err);
