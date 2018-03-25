@@ -1,11 +1,18 @@
 # ProjetFinal
 
+## Features
 
-### Installation
+- Mail search list
+- First column is about the senders
+- Middle one, the different mail subjects sent by a sender
+- On the right, the displaying of the mail content 
+
+## Installation
 
 - Install all dependencies :
 ```sh
 ❯ npm install  
+❯ npm install nodemon
 ❯ cd client  
 ❯ npm install
 ```  
