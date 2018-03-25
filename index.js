@@ -7,8 +7,6 @@ var mongo = require('./mongo');
 */
 
 
-
-//Testing the update
 /*
 mongo.MongoFindSender(".elizondo@enron.com", 2, function (result) {
     console.log(result);
@@ -34,31 +32,6 @@ mongo.MongoFindQuery({
 
 
 //Examples of use
-/*
-mongo.MongoFindQuery({
-    'sender': 'Test@test.com'
-}, 3, function (result) {
-    //console.log(result);
-    mongo.GetInfoFromResult(result, "_id", function (list) {
-        console.log(list);
-    });
-});
-*/
-
-/*
-mongo.MongoFindBetweenDates("2000-01-12","2000-01-13", 2, function (result) {
-    console.log(result);
-});
-*/
-
-/*
-mongo.MongoFindSender("Test@test.com", 2, function (result) {
-    console.log(result);
-});
-*/
-
-//New Examples of use
-
 /*
 mongo.ListSenders(function(listSenders){
     console.log(listSenders);
