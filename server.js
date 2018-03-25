@@ -25,5 +25,10 @@ app.get('/api/remove/:id', (req, res) => {
     });
 });
 
+app.get('/api/update/text/:id/:value', (req, res) => {
+    mongo.UpdateWithId(req.params.id, req.params.value, function (result) {
+        res.send({express : result});
+    });
+});
 
 app.listen(port, () => console.log(`Listening on port ${port}`));

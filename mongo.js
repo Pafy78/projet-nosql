@@ -145,14 +145,14 @@ exports.MailOfSender = function (searchSender, callback) {
     });
 }
 
-exports.UpdateWithId = function (id, newTitle, callback) {
+exports.UpdateWithId = function (id, newText, callback) {
     MongoClient.connect(dburl, function (err, db) {
         if (!err) {
             console.log("We are connected");
             var dbo = db.db("MongEnron");
             var query = {
                 $set: {
-                    title: newTitle
+                    text: newText
                 }
             };
             var ObjectId = new ObjectID.createFromHexString(id);
