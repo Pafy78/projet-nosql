@@ -4,9 +4,7 @@ var ObjectID = require('mongodb').ObjectID
 var password = "admin123";
 var dburl = "mongodb://admin:" + password + "@mongenron-shard-00-00-ebkb0.mongodb.net:27017,mongenron-shard-00-01-ebkb0.mongodb.net:27017,mongenron-shard-00-02-ebkb0.mongodb.net:27017/test?ssl=true&replicaSet=MongEnron-shard-0&authSource=admin";
 
-/*
-function MongoFind(id, sender, recipients, cc, text, mid, fpath, bcc, to, replyto, ctype, fname, date, folder, subject) {*/
-
+//Return the list of a specific field from a json of result
 exports.GetInfoFromResult = function (result, infoNeeded, callback) {
     var returnList = [];
 
@@ -16,10 +14,8 @@ exports.GetInfoFromResult = function (result, infoNeeded, callback) {
     callback(returnList);
 }
 
-exports.JsonFromResult = function (result, callback) {
-
-}
-
+//Basic find with personnalised query
+//For debug only
 exports.MongoFindQuery = function (query, limit, callback) {
     MongoClient.connect(dburl, function (err, db) {
         if (!err) {
@@ -43,33 +39,8 @@ exports.MongoFindQuery = function (query, limit, callback) {
     });
 }
 
-exports.MongoFindSender = function (sender, limit, callback) {
-    // Connect to the db
-    MongoClient.connect(dburl, function (err, db) {
-        if (!err) {
-            console.log("We are connected");
-            var dbo = db.db("MongEnron");
-
-            var query = {
-                "sender": sender
-            };
-
-            dbo.collection("Enron").find(query).limit(limit).toArray(function (err, result) {
-                if (err) {
-                    console.log(err);
-                }
-                db.close();
-                console.log("Connection closed");
-                callback(result);
-            });
-        }
-        //Error managment
-        if (err) {
-            console.log(err);
-        }
-    });
-}
-
+//Find everything between two dates
+//Not used in the webapp
 exports.MongoFindBetweenDates = function (gteDate, lteDate, limit, callback) {
     // Connect to the db
     MongoClient.connect(dburl, function (err, db) {
@@ -105,6 +76,7 @@ exports.MongoFindBetweenDates = function (gteDate, lteDate, limit, callback) {
     });
 }
 
+//Return the list of sender
 exports.ListSenders = function (callback) {
     MongoClient.connect(dburl, function (err, db) {
         if (!err) {
@@ -125,6 +97,7 @@ exports.ListSenders = function (callback) {
     });
 }
 
+//Get everything by sender
 exports.MailOfSender = function (searchSender, callback) {
     MongoClient.connect(dburl, function (err, db) {
         if (!err) {
@@ -151,6 +124,7 @@ exports.MailOfSender = function (searchSender, callback) {
     });
 }
 
+//Update the text of a specific mail ID
 exports.UpdateWithId = function (id, newText, callback) {
     MongoClient.connect(dburl, function (err, db) {
         if (!err) {
@@ -178,6 +152,7 @@ exports.UpdateWithId = function (id, newText, callback) {
     });
 }
 
+//Remove a mail of a specific ID
 exports.RemoveWithId = function (id, callback) {
     MongoClient.connect(dburl, function (err, db) {
         if (!err) {
@@ -206,3 +181,45 @@ exports.RemoveWithId = function (id, callback) {
         }
     });
 }
+
+
+//Queries if runned on a local DB called Enron:
+//Final project
+
+//ListSenders
+/*
+db.enron.distinct('sender');
+*/
+
+//MailOfSender
+/*
+var searchSender = "rosalee.fleming@enron.com";
+db.enron.find({'sender':searchSender},{})
+*/
+
+//UpdateWithId
+/*
+var idToUpdate = ObjectId("52af48b5d55148fa0c199643");
+var newText = "Text after update";
+db.enron.updateOne({ "_id" : idToUpdate },{ $set: { "text" : newText } });
+*/
+
+//RemoveWithId
+/*
+var idToDelete = ObjectId("52af48b5d55148fa0c199643");
+db.enron.remove( {"_id": idToDelete});
+*/
+
+//Not used
+//MongoFindQuery
+/*
+var specialQuery = {'sender':"rosalee.fleming@enron.com"}
+db.enron.find(specialQuery,{})
+*/
+
+//MongoFindBetweenDates
+/*
+var dateBeginning = "1999-10";
+var dateEnd = "1999-11";
+db.enron.find({$and:[{"date":{$gte:dateBeginning}}, {"date":{$lte:dateEnd}}]})
+*/
