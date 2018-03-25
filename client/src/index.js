@@ -15,9 +15,10 @@ class Base extends React.Component {
         };
 
         this.handleShowEmail = this.handleShowEmail.bind(this);
-        this.handleShowSpecificEmail = this.handleShowSpecificEmail.bind(this);
 
     }
+
+
 
     async handleShowEmail(em) {
         this.setState({
@@ -31,11 +32,11 @@ class Base extends React.Component {
                         }
 
                         handleShowSpecificEmail(em) {
-            ReactDOM.render(<EmailDetail email={em} />, document.getElementById('EmailSpecific'));
+            ReactDOM.render(<EmailDetail onClickDeleteEmail={this.handleDeleteEmail} email={em} />, document.getElementById('EmailSpecific'));
                             }
 
 
-                            render() {
+            render() {
                 return (
                     <div className="content">
                     <EmailsList 

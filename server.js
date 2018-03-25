@@ -19,4 +19,11 @@ app.get('/api/details/:email', (req, res) => {
     });
 });
 
+app.get('/api/remove/:id', (req, res) => {
+    mongo.RemoveWithId(req.params.id, function (result) {
+        res.send({express : result});
+    });
+});
+
+
 app.listen(port, () => console.log(`Listening on port ${port}`));

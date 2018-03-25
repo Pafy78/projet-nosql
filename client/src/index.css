@@ -70,11 +70,10 @@ h2.subject{
     margin-bottom: 10px;
 }
 
-.from-date{
+.row-between{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    font-size: 14px;
 }
 
 .text{
