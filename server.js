@@ -6,19 +6,15 @@ const app = express();
 const port = process.env.PORT || 5000;
 
 app.get('/api/emails', (req, res) => {
-    mongo.MongoFindQuery({
-        "fname": "1."
-    }, 100, function (result) {
-        mongo.GetInfoFromResult(result, "sender", function (list) {
-            res.send({express : list});
-        });
-    });
+    mongo.ListSenders(function(data){
+        res.send({express : data});
+    })
 });
 
 
 
 app.get('/api/details/:email', (req, res) => {
-    mongo.MongoFindSender(req.params.email, 10, function (result) {
+    mongo.MailOfSender(req.params.email, function (result) {
         res.send({express : result});
     });
 });

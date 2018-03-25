@@ -5,6 +5,10 @@ body {
     overflow: hidden;
 }
 
+hr{
+    margin: 0px;
+}
+
 .content{
     height: 100vh;
     width: 100vw;
@@ -18,8 +22,8 @@ body {
 /*  Left side */
 .emails-list{
     border: 1px solid black;
-    width: 15vw;
-    height: auto;
+    width: 20vw;
+    height: 100%;
     overflow-y: scroll;
 }
 
@@ -48,8 +52,36 @@ body {
 
 
 
-/*  Right side */
+/*  Center */
 
 .EmailDetails{
-    width: 85wv;
+    width: 20wv;
 }
+
+/* Right side */
+.EmailSpecific{
+    width: 70vw;
+}
+
+.email{
+    padding: 0px 40px 0px 40px;
+}
+h2.subject{
+    margin-bottom: 10px;
+}
+
+.from-date{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    font-size: 14px;
+}
+
+.text{
+    font-size: 13px;
+    line-height: 1.6;
+    max-height: 75vh;
+    overflow-y: scroll;
+}
+
+
